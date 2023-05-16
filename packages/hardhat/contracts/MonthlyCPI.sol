@@ -39,7 +39,7 @@ We can make the factory the erc-20
 //Consumer Pirce Index
 contract MonthlyCPI {
 
-    struct RevealededPrice {
+    struct RevealedPrice {
         uint price0;
         uint price1;
         uint price2;
@@ -47,7 +47,7 @@ contract MonthlyCPI {
     }
 
     mapping (address => bytes32) public commitment;
-    mapping (address => RevealededPrice) public revealedPrice;
+    mapping (address => RevealedPrice) public revealedPrice;
     mapping (address => bool) public userRevealed;
     address[] public revealedUsers;
     //Genesis month prices:
@@ -100,7 +100,7 @@ contract MonthlyCPI {
         //require (keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3)) == commitment[msg.sender], "Incorrect commit");
     
         //Save the commit in mapping
-        revealedPrice[msg.sender] = RevealededPrice({price0: _price0, price1: _price1, price2: _price2, price3: _price3});
+        revealedPrice[msg.sender] = RevealedPrice({price0: _price0, price1: _price1, price2: _price2, price3: _price3});
         revealedUsers.push(msg.sender);
         userRevealed[msg.sender] = true;
     }
@@ -132,24 +132,13 @@ contract MonthlyCPI {
 
         return (price0Avg, price1Avg, price2Avg, price3Avg);
 
-    }
+    }  
 
     
 
-    function claimReward () public{
-        // calculate 
-
-    }   
-
-    function calculateHonestUser () public {
-
-    }
-
-    function testing (uint _price0, uint _price1 , uint _price2, uint _price3) public pure returns (bytes32) {
+    function testHash (uint _price0, uint _price1 , uint _price2, uint _price3) public pure returns (bytes32) {
         return keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3));
     }
-
-    
 }
 
 
