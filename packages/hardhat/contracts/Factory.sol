@@ -32,10 +32,6 @@ contract FactoryCPI {
         counter++;
     }
 
-    function _genesis () internal {
-
-    }
-
     function calculateCPI () public {
 
         int price0Old = int(MonthlyCPI(cpis[counter - 1]).price0Avg());

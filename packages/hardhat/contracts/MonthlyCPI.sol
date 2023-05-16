@@ -50,10 +50,11 @@ contract MonthlyCPI {
     mapping (address => RevealededPrice) public revealedPrice;
     mapping (address => bool) public userRevealed;
     address[] public revealedUsers;
-    uint public price0Avg = 12  * 10**16;  //$0.12 for 1 kw-hour
-    uint public price1Avg = 129 * 10**16;  //$1.29 for 1 liter of gas
-    uint public price2Avg = 128 * 10**16;  //$1.28 for 1 liter of milk
-    uint public price3Avg = 65  * 10**18;  //$65   for Internet 8 mbps (1 month)
+    //Genesis month prices:
+    uint public price0Avg = 700  * 10**18;  //$700 colombian pesos for 1 kw-hour
+    uint public price1Avg = 3100 * 10**18;  //$3100 comlombian pesos for 1 liter of gas
+    uint public price2Avg = 4600 * 10**18;  //$4600 colombian pesos for 1 liter of milk
+    uint public price3Avg = 75000  * 10**18;  //$75000 colombian pesos   for Internet 10 mbps upload speed (1 month)
     // data from: https://www.expatistan.com/cost-of-living/new-york-city at May2022
     uint timeAtDeploy;
     bool computeAvgCalled = false;
@@ -98,22 +99,6 @@ contract MonthlyCPI {
     function reveal (uint _price0, uint _price1, uint _price2, uint _price3) public notRevealed onlyInRevealPeriod {
         //require (keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3)) == commitment[msg.sender], "Incorrect commit");
     
-        //Do the average
-        /*
-        if (firstReveal == 0){
-            price0Avg = _price0;
-            price1Avg = _price1;
-            price2Avg = _price2;
-            price3Avg = _price3;
-            firstReveal++;
-        } else {
-            price0Avg = (price0Avg + _price0)/2;
-            price1Avg = (price1Avg + _price1)/2;
-            price2Avg = (price2Avg + _price2)/2;
-            price3Avg = (price3Avg + _price3)/2;
-        }
-        */
-
         //Save the commit in mapping
         revealedPrice[msg.sender] = RevealededPrice({price0: _price0, price1: _price1, price2: _price2, price3: _price3});
         revealedUsers.push(msg.sender);
@@ -121,7 +106,7 @@ contract MonthlyCPI {
     }
 
     function computeAvg () public onlyAfter6Days onlyOnce returns (uint, uint, uint, uint) {
-        // require call only after 28 og each month
+        // require call only after 28 of each month
         uint totalParticipants = revealedUsers.length;
         require(totalParticipants > 0, "No participants :(");
         
@@ -162,7 +147,6 @@ contract MonthlyCPI {
 
     function testing (uint _price0, uint _price1 , uint _price2, uint _price3) public pure returns (bytes32) {
         return keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3));
-
     }
 
     
