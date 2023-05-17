@@ -58,7 +58,7 @@ contract MonthlyCPI {
     // data from: https://www.expatistan.com/cost-of-living/new-york-city at May2022
     uint timeAtDeploy;
     bool computeAvgCalled = false;
-    
+
     modifier notRevealed {
         require (!userRevealed[msg.sender], "Already revealed");
         _;
@@ -96,8 +96,8 @@ contract MonthlyCPI {
         commitment[msg.sender] = _commitment;
     }
 
-    function reveal (uint _price0, uint _price1, uint _price2, uint _price3) public notRevealed onlyInRevealPeriod {
-        //require (keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3)) == commitment[msg.sender], "Incorrect commit");
+    function reveal (uint _price0, uint _price1, uint _price2, uint _price3) public notRevealed /*onlyInRevealPeriod*/ {
+        require (keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3)) == commitment[msg.sender], "Incorrect commit");
     
         //Save the commit in mapping
         revealedPrice[msg.sender] = RevealedPrice({price0: _price0, price1: _price1, price2: _price2, price3: _price3});
@@ -138,6 +138,24 @@ contract MonthlyCPI {
 
     function testHash (uint _price0, uint _price1 , uint _price2, uint _price3) public pure returns (bytes32) {
         return keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3));
+    }
+
+    function getRevealedPrices (address _address) external view returns (uint, uint, uint, uint)  {
+
+        uint v0 = revealedPrice[_address].price0;
+        uint v1 = revealedPrice[_address].price1;
+        uint v2 = revealedPrice[_address].price2;
+        uint v3 = revealedPrice[_address].price3;
+
+        return (v0, v1, v2, v3);
+    }
+
+    function getAvgPrices () external view returns (uint, uint, uint, uint)  {
+        return (price0Avg, price1Avg, price2Avg, price3Avg);
+    }
+
+    function getTotalParticipants () public view returns (uint) {
+        return revealedUsers.length;
     }
 }
 
