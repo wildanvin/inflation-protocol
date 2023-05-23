@@ -4,8 +4,150 @@ const contracts = {
       name: "localhost",
       chainId: "31337",
       contracts: {
+        YourContract: {
+          address: "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
+          abi: [
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "_owner",
+                  type: "address",
+                },
+              ],
+              stateMutability: "nonpayable",
+              type: "constructor",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: false,
+                  internalType: "address",
+                  name: "greetingSetter",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "string",
+                  name: "newGreeting",
+                  type: "string",
+                },
+                {
+                  indexed: false,
+                  internalType: "bool",
+                  name: "premium",
+                  type: "bool",
+                },
+                {
+                  indexed: false,
+                  internalType: "uint256",
+                  name: "value",
+                  type: "uint256",
+                },
+              ],
+              name: "GreetingChange",
+              type: "event",
+            },
+            {
+              inputs: [],
+              name: "greeting",
+              outputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "owner",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "premium",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "_newGreeting",
+                  type: "string",
+                },
+              ],
+              name: "setGreeting",
+              outputs: [],
+              stateMutability: "payable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "totalCounter",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "userGreetingCounter",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "withdraw",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              stateMutability: "payable",
+              type: "receive",
+            },
+          ],
+        },
         MonthlyCPI: {
-          address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+          address: "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
           abi: [
             {
               inputs: [],
@@ -70,6 +212,81 @@ const contracts = {
                 },
               ],
               stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getAvgPrices",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "_address",
+                  type: "address",
+                },
+              ],
+              name: "getRevealedPrices",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getTotalParticipants",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
               type: "function",
             },
             {
@@ -240,6 +457,19 @@ const contracts = {
               type: "function",
             },
             {
+              inputs: [],
+              name: "timeAtDeploy",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
               inputs: [
                 {
                   internalType: "address",
@@ -260,17 +490,11 @@ const contracts = {
             },
           ],
         },
-        YourContract: {
-          address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+        FactoryCPI: {
+          address: "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
           abi: [
             {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "_owner",
-                  type: "address",
-                },
-              ],
+              inputs: [],
               stateMutability: "nonpayable",
               type: "constructor",
             },
@@ -278,22 +502,16 @@ const contracts = {
               anonymous: false,
               inputs: [
                 {
-                  indexed: false,
+                  indexed: true,
                   internalType: "address",
-                  name: "greetingSetter",
+                  name: "owner",
                   type: "address",
                 },
                 {
-                  indexed: false,
-                  internalType: "string",
-                  name: "newGreeting",
-                  type: "string",
-                },
-                {
-                  indexed: false,
-                  internalType: "bool",
-                  name: "premium",
-                  type: "bool",
+                  indexed: true,
+                  internalType: "address",
+                  name: "spender",
+                  type: "address",
                 },
                 {
                   indexed: false,
@@ -302,38 +520,72 @@ const contracts = {
                   type: "uint256",
                 },
               ],
-              name: "GreetingChange",
+              name: "Approval",
               type: "event",
             },
             {
-              inputs: [],
-              name: "greeting",
-              outputs: [
+              anonymous: false,
+              inputs: [
                 {
-                  internalType: "string",
-                  name: "",
-                  type: "string",
+                  indexed: true,
+                  internalType: "address",
+                  name: "from",
+                  type: "address",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "uint256",
+                  name: "value",
+                  type: "uint256",
                 },
               ],
-              stateMutability: "view",
-              type: "function",
+              name: "Transfer",
+              type: "event",
             },
             {
-              inputs: [],
-              name: "owner",
-              outputs: [
+              inputs: [
                 {
                   internalType: "address",
-                  name: "",
+                  name: "owner",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "spender",
                   type: "address",
                 },
               ],
+              name: "allowance",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
               stateMutability: "view",
               type: "function",
             },
             {
-              inputs: [],
-              name: "premium",
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "spender",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+              ],
+              name: "approve",
               outputs: [
                 {
                   internalType: "bool",
@@ -341,25 +593,121 @@ const contracts = {
                   type: "bool",
                 },
               ],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "account",
+                  type: "address",
+                },
+              ],
+              name: "balanceOf",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "calculateCPI",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "claimReward",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "counter",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
               stateMutability: "view",
               type: "function",
             },
             {
               inputs: [
                 {
-                  internalType: "string",
-                  name: "_newGreeting",
-                  type: "string",
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
                 },
               ],
-              name: "setGreeting",
-              outputs: [],
-              stateMutability: "payable",
+              name: "cpis",
+              outputs: [
+                {
+                  internalType: "contract MonthlyCPI",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
               type: "function",
             },
             {
               inputs: [],
-              name: "totalCounter",
+              name: "createMonthlyCPI",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "decimals",
+              outputs: [
+                {
+                  internalType: "uint8",
+                  name: "",
+                  type: "uint8",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "spender",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "subtractedValue",
+                  type: "uint256",
+                },
+              ],
+              name: "decreaseAllowance",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+              ],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getTimeFromMonth",
               outputs: [
                 {
                   internalType: "uint256",
@@ -374,11 +722,118 @@ const contracts = {
               inputs: [
                 {
                   internalType: "address",
-                  name: "",
+                  name: "spender",
                   type: "address",
                 },
+                {
+                  internalType: "uint256",
+                  name: "addedValue",
+                  type: "uint256",
+                },
               ],
-              name: "userGreetingCounter",
+              name: "increaseAllowance",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+              ],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "name",
+              outputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "percentages",
+              outputs: [
+                {
+                  internalType: "int256",
+                  name: "price0",
+                  type: "int256",
+                },
+                {
+                  internalType: "int256",
+                  name: "price1",
+                  type: "int256",
+                },
+                {
+                  internalType: "int256",
+                  name: "price2",
+                  type: "int256",
+                },
+                {
+                  internalType: "int256",
+                  name: "price3",
+                  type: "int256",
+                },
+                {
+                  internalType: "int256",
+                  name: "total",
+                  type: "int256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "symbol",
+              outputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "uint256",
+                  name: "_a",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "_b",
+                  type: "uint256",
+                },
+              ],
+              name: "test",
+              outputs: [
+                {
+                  internalType: "int256",
+                  name: "",
+                  type: "int256",
+                },
+              ],
+              stateMutability: "pure",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "totalSupply",
               outputs: [
                 {
                   internalType: "uint256",
@@ -390,15 +845,57 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [],
-              name: "withdraw",
-              outputs: [],
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+              ],
+              name: "transfer",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+              ],
               stateMutability: "nonpayable",
               type: "function",
             },
             {
-              stateMutability: "payable",
-              type: "receive",
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "from",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+              ],
+              name: "transferFrom",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+              ],
+              stateMutability: "nonpayable",
+              type: "function",
             },
           ],
         },

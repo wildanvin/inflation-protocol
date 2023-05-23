@@ -6,13 +6,12 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 contract FactoryCPI is ERC20 {
 
-    constructor() ERC20("MyToken", "MTK") {
+    constructor() ERC20("InfCOL", "ICOP") {
         _mint(0xDead0000371e0a9EC309d84586dE645a6897E613, 3000000000 * 10 ** decimals());
 
         //Genesis Month
         MonthlyCPI cpi = new MonthlyCPI();
         cpis.push(cpi);
-        counter++;
     }
 
     struct Percentages {
@@ -25,7 +24,7 @@ contract FactoryCPI is ERC20 {
 
     MonthlyCPI[] public cpis;
     Percentages[] public percentages;
-    uint counter;
+    uint public counter;
 
     modifier onlyOnceAMonth {
         require (block.timestamp >= MonthlyCPI(cpis[counter]).timeAtDeploy() + 28 days, "Only 1 per month");
@@ -111,6 +110,10 @@ contract FactoryCPI is ERC20 {
         } else {
             return (a-b);
         }  
+    }
+
+    function getTimeFromMonth () public view returns (uint) {
+        return MonthlyCPI(cpis[counter]).timeAtDeploy();
     }
 
     function test (uint _a, uint _b) public pure returns(int) {
