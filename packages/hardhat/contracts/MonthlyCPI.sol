@@ -55,17 +55,10 @@ contract MonthlyCPI {
     uint public price1Avg = 3100 * 10**18;  //$3100 comlombian pesos for 1 liter of gas
     uint public price2Avg = 4600 * 10**18;  //$4600 colombian pesos for 1 liter of milk
     uint public price3Avg = 75000  * 10**18;  //$75000 colombian pesos   for Internet 10 mbps upload speed (1 month)
-    // data from: https://www.expatistan.com/cost-of-living/new-york-city at May2022
-    uint timeAtDeploy;
-    bool computeAvgCalled = false;
+    uint public timeAtDeploy;
 
     modifier notRevealed {
         require (!userRevealed[msg.sender], "Already revealed");
-        _;
-    }
-
-    modifier onlyOnce {
-        require (!computeAvgCalled, "Already computed");
         _;
     }
 
@@ -76,11 +69,6 @@ contract MonthlyCPI {
 
     modifier onlyInRevealPeriod {
         require (block.timestamp >= timeAtDeploy + 3 days && block.timestamp <= timeAtDeploy + 6 days,"Not time for reveal");
-        _;
-    }
-
-    modifier onlyAfter6Days {
-        require (block.timestamp >= timeAtDeploy + 6 days ,"Not time for average");
         _;
     }
 
@@ -105,7 +93,7 @@ contract MonthlyCPI {
         userRevealed[msg.sender] = true;
     }
 
-    function computeAvg () public onlyAfter6Days onlyOnce returns (uint, uint, uint, uint) {
+    function computeAvg () public returns (uint, uint, uint, uint) {
         // require call only after 28 of each month
         uint totalParticipants = revealedUsers.length;
         require(totalParticipants > 0, "No participants :(");
@@ -128,10 +116,7 @@ contract MonthlyCPI {
         price2Avg = price2Sum/totalParticipants;
         price3Avg = price3Sum/totalParticipants;
 
-        computeAvgCalled = true;
-
         return (price0Avg, price1Avg, price2Avg, price3Avg);
-
     }  
 
     

@@ -15,7 +15,7 @@ contract FactoryCPI is ERC20 {
         counter++;
     }
 
-     struct Percentages {
+    struct Percentages {
         int price0;
         int price1;
         int price2;
@@ -27,18 +27,26 @@ contract FactoryCPI is ERC20 {
     Percentages[] public percentages;
     uint counter;
 
+    modifier onlyOnceAMonth {
+        require (block.timestamp >= MonthlyCPI(cpis[counter]).timeAtDeploy() + 28 days, "Only 1 per month");
+        _;
+    }
+
+    modifier onlyAfterCommitReveal {
+        require (block.timestamp >= MonthlyCPI(cpis[counter]).timeAtDeploy() + 6 days, "Wait for commit-reveal");
+        _;
+    }
+
     // This function should be called the 15th of each month
-    // TODO: add modifier so it only can be created once a month
-    function createMonthlyCPI () public {
+    function createMonthlyCPI () public onlyOnceAMonth {
         MonthlyCPI cpi = new MonthlyCPI();
         cpis.push(cpi);
         counter++;
     }
 
     // This is the function that should be called the 21th of each month
-    // After 6 days. 3 days of commit period and 3 days of reveal period 
-    // this function should be called just once
-    function calculateCPI () public {
+    // After 6 days: 3 days of commit period and 3 days of reveal period 
+    function calculateCPI () public onlyAfterCommitReveal{
 
         int price0Old = int(MonthlyCPI(cpis[counter - 1]).price0Avg());
         int price1Old = int(MonthlyCPI(cpis[counter - 1]).price1Avg());
@@ -57,8 +65,7 @@ contract FactoryCPI is ERC20 {
         percentages.push(Percentages(percentage0, percentage1, percentage2, percentage3, total));
     }
 
-    // TODO: claim reward only after 6 days
-    function claimReward () public{
+    function claimReward () public onlyAfterCommitReveal{
         
         require(MonthlyCPI(cpis[counter]).userRevealed(msg.sender));
         require(_verifyRevealedAnswers(), "Wrong answers submitted");
@@ -69,8 +76,6 @@ contract FactoryCPI is ERC20 {
             uint reward = (uint(inflation) * totalSupply())/totalParticipants;
             _mint(msg.sender, uint(reward));
         }
-        //if total percentage > 0. Mint only if there is inflation
-        //mint (total percentage * total supply)/number of participants
     } 
 
     function _verifyRevealedAnswers() view internal returns(bool) {
@@ -110,7 +115,6 @@ contract FactoryCPI is ERC20 {
 
     function test (uint _a, uint _b) public pure returns(int) {
         return (int(_a)-int(_b));
-
     }
 
 }
