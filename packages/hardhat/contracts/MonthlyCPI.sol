@@ -84,7 +84,7 @@ contract MonthlyCPI {
         commitment[msg.sender] = _commitment;
     }
 
-    function reveal (uint _price0, uint _price1, uint _price2, uint _price3) public notRevealed /*onlyInRevealPeriod*/ {
+    function reveal (uint _price0, uint _price1, uint _price2, uint _price3) public notRevealed onlyInRevealPeriod {
         require (keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3)) == commitment[msg.sender], "Incorrect commit");
     
         //Save the commit in mapping
@@ -94,7 +94,6 @@ contract MonthlyCPI {
     }
 
     function computeAvg () public returns (uint, uint, uint, uint) {
-        // require call only after 28 of each month
         uint totalParticipants = revealedUsers.length;
         require(totalParticipants > 0, "No participants :(");
         
