@@ -12,22 +12,28 @@ async function main() {
     return hash;
   }
 
-  const account = (await ethers.getSigners())[0];
-  const contractAddress = "0xf5059a5D33d5853360D16C683c16e67980206f36"; // Replace with your contract address
-  const Contract = await ethers.getContractFactory("MonthlyCPI"); // Replace with your contract name
-  const contract = await Contract.attach(contractAddress);
+  const contractAddress = "0x9d4454B023096f34B160D6B654540c56A1F81688"; // Replace with your contract address
+  const commit0 = getCommitInBytes(110, 10, 10, 10);
+  const commit1 = getCommitInBytes(110, 10, 101, 10);
 
-  // Interact with the contract
-  const commit1 = getCommitInBytes(110, 10, 10, 10);
-  console.log("committing with", commit1);
+  //const account = (await ethers.getSigners())[5];
+  const [account0, account1] = await ethers.getSigners();
 
-  const tx = await contract.commit(commit1);
-  console.log("Transaction hash:", tx.hash);
-  console.log("Committed with account:", account.address);
+  //Interact with account0
+  const Contract0 = await ethers.getContractFactory("MonthlyCPI", account0);
+  const contract0 = await Contract0.attach(contractAddress);
 
-  // Wait for the transaction to be mined
-  await tx.wait();
-  console.log("Transaction confirmed");
+  const tx0 = await contract0.commit(commit0);
+  console.log("Committed with address:", account0.address);
+  await tx0.wait();
+
+  //Interact with account1
+  const Contract1 = await ethers.getContractFactory("MonthlyCPI", account1);
+  const contract1 = await Contract1.attach(contractAddress);
+
+  const tx1 = await contract1.commit(commit1);
+  console.log("Committed with address:", account1.address);
+  await tx1.wait();
 }
 
 main()
