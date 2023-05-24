@@ -5,7 +5,7 @@ const contracts = {
       chainId: "31337",
       contracts: {
         YourContract: {
-          address: "0x4A679253410272dd5232B3Ff7cF5dbB88f295319",
+          address: "0x851356ae760d987E095750cCeb3bC6014560891C",
           abi: [
             {
               inputs: [
@@ -147,7 +147,7 @@ const contracts = {
           ],
         },
         MonthlyCPI: {
-          address: "0x7a2088a1bFc9d81c55368AE168C2C02570cB814F",
+          address: "0xf5059a5D33d5853360D16C683c16e67980206f36",
           abi: [
             {
               inputs: [],
@@ -491,7 +491,7 @@ const contracts = {
           ],
         },
         FactoryCPI: {
-          address: "0x09635F643e140090A9A8Dcd712eD6285858ceBef",
+          address: "0x95401dc811bb5740090279Ba06cfA8fcF6113778",
           abi: [
             {
               inputs: [],
@@ -706,19 +706,6 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [],
-              name: "getTimeFromMonth",
-              outputs: [
-                {
-                  internalType: "uint256",
-                  name: "",
-                  type: "uint256",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
               inputs: [
                 {
                   internalType: "address",
@@ -805,30 +792,6 @@ const contracts = {
                 },
               ],
               stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
-                  internalType: "uint256",
-                  name: "_a",
-                  type: "uint256",
-                },
-                {
-                  internalType: "uint256",
-                  name: "_b",
-                  type: "uint256",
-                },
-              ],
-              name: "test",
-              outputs: [
-                {
-                  internalType: "int256",
-                  name: "",
-                  type: "int256",
-                },
-              ],
-              stateMutability: "pure",
               type: "function",
             },
             {

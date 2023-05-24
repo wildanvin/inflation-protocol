@@ -111,13 +111,4 @@ contract FactoryCPI is ERC20 {
             return (a-b);
         }  
     }
-
-    function getTimeFromMonth () public view returns (uint) {
-        return MonthlyCPI(cpis[counter]).timeAtDeploy();
-    }
-
-    function test (uint _a, uint _b) public pure returns(int) {
-        return (int(_a)-int(_b));
-    }
-
 }
