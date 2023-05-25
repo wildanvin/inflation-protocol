@@ -5,7 +5,7 @@ const contracts = {
       chainId: "31337",
       contracts: {
         YourContract: {
-          address: "0x8f86403A4DE0BB5791fa46B8e795C547942fE4Cf",
+          address: "0x04C89607413713Ec9775E14b954286519d836FEf",
           abi: [
             {
               inputs: [
@@ -147,7 +147,7 @@ const contracts = {
           ],
         },
         MonthlyCPI: {
-          address: "0x9d4454B023096f34B160D6B654540c56A1F81688",
+          address: "0x4C4a2f8c81640e47606d3fd77B353E87Ba015584",
           abi: [
             {
               inputs: [],
@@ -491,7 +491,7 @@ const contracts = {
           ],
         },
         FactoryCPI: {
-          address: "0x5eb3Bc0a489C5A8288765d2336659EbCA68FCd00",
+          address: "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
           abi: [
             {
               inputs: [],

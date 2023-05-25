@@ -54,10 +54,10 @@ contract FactoryCPI is ERC20 {
 
         (uint price0New, uint price1New, uint price2New, uint price3New) = MonthlyCPI(cpis[counter]).computeAvg();
 
-        int percentage0 = (int(price0New) - price0Old)/price0Old;
-        int percentage1 = (int(price1New) - price1Old)/price1Old;
-        int percentage2 = (int(price2New) - price2Old)/price2Old;
-        int percentage3 = (int(price3New) - price3Old)/price3Old;
+        int percentage0 = ((int(price0New) - price0Old)*100000)/price0Old;
+        int percentage1 = ((int(price1New) - price1Old)*100000)/price1Old;
+        int percentage2 = ((int(price2New) - price2Old)*100000)/price2Old;
+        int percentage3 = ((int(price3New) - price3Old)*100000)/price3Old;
 
         int total = (percentage0 + percentage1 + percentage2 + percentage3)/4;
 
@@ -66,13 +66,13 @@ contract FactoryCPI is ERC20 {
 
     function claimReward () public onlyAfterCommitReveal{
         
-        require(MonthlyCPI(cpis[counter]).userRevealed(msg.sender));
+        require(MonthlyCPI(cpis[counter]).userRevealed(msg.sender), "User hasn't revealed");
         require(_verifyRevealedAnswers(), "Wrong answers submitted");
 
-        int inflation = percentages[counter].total;
+        int inflation = percentages[counter - 1].total;
         if ( inflation > 0) {
             uint totalParticipants = MonthlyCPI(cpis[counter]).getTotalParticipants();
-            uint reward = (uint(inflation) * totalSupply())/totalParticipants;
+            uint reward = (uint(inflation) * totalSupply())/(totalParticipants*100000);
             _mint(msg.sender, uint(reward));
         }
     } 
