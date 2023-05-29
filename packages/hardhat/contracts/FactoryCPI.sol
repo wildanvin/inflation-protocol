@@ -111,4 +111,8 @@ contract FactoryCPI is ERC20 {
             return (a-b);
         }  
     }
+
+    function getCPIsArray () public view returns (MonthlyCPI[] memory){
+        return cpis;
+    }
 }

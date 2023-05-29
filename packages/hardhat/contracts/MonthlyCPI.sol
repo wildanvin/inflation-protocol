@@ -102,7 +102,7 @@ contract MonthlyCPI {
         uint price2Sum;
         uint price3Sum;
 
-          for (uint i = 0; i < totalParticipants; i++) {
+        for (uint i = 0; i < totalParticipants; i++) {
 
             price0Sum += revealedPrice[revealedUsers[i]].price0;
             price1Sum += revealedPrice[revealedUsers[i]].price1;
@@ -110,6 +110,7 @@ contract MonthlyCPI {
             price3Sum += revealedPrice[revealedUsers[i]].price3;
 
         }
+        
         price0Avg = price0Sum/totalParticipants;
         price1Avg = price1Sum/totalParticipants;
         price2Avg = price2Sum/totalParticipants;

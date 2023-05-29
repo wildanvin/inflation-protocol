@@ -5,7 +5,7 @@ const contracts = {
       chainId: "31337",
       contracts: {
         YourContract: {
-          address: "0x04C89607413713Ec9775E14b954286519d836FEf",
+          address: "0x51A1ceB83B83F1985a81C295d1fF28Afef186E02",
           abi: [
             {
               inputs: [
@@ -147,7 +147,7 @@ const contracts = {
           ],
         },
         MonthlyCPI: {
-          address: "0x4C4a2f8c81640e47606d3fd77B353E87Ba015584",
+          address: "0x36b58F5C1969B7b6591D752ea6F5486D069010AB",
           abi: [
             {
               inputs: [],
@@ -491,7 +491,7 @@ const contracts = {
           ],
         },
         FactoryCPI: {
-          address: "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823",
+          address: "0x8198f5d8F8CfFE8f9C413d98a0A55aEB8ab9FbB7",
           abi: [
             {
               inputs: [],
@@ -703,6 +703,19 @@ const contracts = {
                 },
               ],
               stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getCPIsArray",
+              outputs: [
+                {
+                  internalType: "contract MonthlyCPI[]",
+                  name: "",
+                  type: "address[]",
+                },
+              ],
+              stateMutability: "view",
               type: "function",
             },
             {
