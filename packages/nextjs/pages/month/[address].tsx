@@ -15,32 +15,43 @@ const Address: NextPage = () => {
   }
 
   interface CommitInput {
-    input1: BigNumber;
-    input2: BigNumber;
+    input1: number;
+    input2: number;
   }
 
   const [commitInput, setCommitInput] = useState<CommitInput>({
-    input1: BigNumber.from("0"),
-    input2: BigNumber.from("0"),
+    input1: 0,
+    input2: 0,
   });
 
   const handleCommitInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setCommitInput(prevCommitInput => ({
       ...prevCommitInput,
-      [name]: BigNumber.from(value),
+      [name]: value,
     }));
   };
+  const [userCommit, setUserCommit] = useState("0x56553487f6661fa95bc98d8e92fd6d0332ce008bf8fce601aba2e2ef1846136e");
 
   const handleCommit = (event: React.FormEvent) => {
     event.preventDefault();
     // Perform commit logic here
+    const commit = getCommitInBytes(
+      ethers.utils.parseEther(commitInput.input1.toString()),
+      ethers.utils.parseEther(commitInput.input2.toString()),
+      ethers.utils.parseEther("10"),
+      ethers.utils.parseEther("10"),
+      // ethers.utils.parseEther("10"),
+      // ethers.utils.parseEther("10"),
+    );
+    setUserCommit(commit);
+    console.log(`The commit is: ${commit}`);
+    writeAsync();
   };
 
   const router = useRouter();
 
   const address: string = router.query.address?.toString() ?? "0x0";
-  const [userCommit, setUserCommit] = useState("0x56553487f6661fa95bc98d8e92fd6d0332ce008bf8fce601aba2e2ef1846136e");
 
   const { data: timeAtDeploy } = useCustomContractRead({
     contractName: "MonthlyCPI",
@@ -48,13 +59,16 @@ const Address: NextPage = () => {
     address: address,
   });
 
-  const mystr = "0x56553487f6661fa95bc98d8e92fd6d0332ce008bf8fce601aba2e2ef1846136e";
+  //const mystr = "0x56553487f6661fa95bc98d8e92fd6d0332ce008bf8fce601aba2e2ef1846136e";
+
+  // 0x0x56553487f6661fa95bc98d8e92fd6d0332ce008bf8fce601aba2e2ef1846136e
 
   const { writeAsync, isLoading } = useCustomContractWrite({
     contractName: "MonthlyCPI",
     functionName: "commit",
-    address: address,
-    args: [`0x${userCommit}`],
+    //address: address,
+    address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+    args: [userCommit],
     //args: [mystr],
   });
 
@@ -77,7 +91,7 @@ const Address: NextPage = () => {
               <form onSubmit={handleCommit}>
                 <input
                   type="text"
-                  className="mt-4 p-2 border border-gray-300 rounded"
+                  className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
                   placeholder="Enter number 1..."
                   name="input1"
                   value={commitInput.input1.toString()}
@@ -85,7 +99,7 @@ const Address: NextPage = () => {
                 />
                 <input
                   type="text"
-                  className="mt-4 p-2 border border-gray-300 rounded"
+                  className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
                   placeholder="Enter number 2..."
                   name="input2"
                   value={commitInput.input2.toString()}
