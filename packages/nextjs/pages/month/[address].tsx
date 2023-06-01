@@ -7,7 +7,7 @@ const Address: NextPage = () => {
   const router = useRouter();
 
   const address: string = router.query.address?.toString() ?? "0x0";
-  //const [userCommit, setUserCommit] = useState("0x1");
+  const [userCommit, setUserCommit] = useState("0x56553487f6661fa95bc98d8e92fd6d0332ce008bf8fce601aba2e2ef1846136e");
 
   const { data: timeAtDeploy } = useCustomContractRead({
     contractName: "MonthlyCPI",
@@ -21,8 +21,8 @@ const Address: NextPage = () => {
     contractName: "MonthlyCPI",
     functionName: "commit",
     address: address,
-    //args: ["0x1"],
-    args: [mystr],
+    args: [`0x${userCommit}`],
+    //args: [mystr],
   });
 
   return (
