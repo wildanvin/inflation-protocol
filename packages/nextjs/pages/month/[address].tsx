@@ -15,39 +15,65 @@ const Address: NextPage = () => {
   }
 
   interface CommitInput {
-    input1: number;
-    input2: number;
+    price0: number;
+    price1: number;
+    price2: number;
+    price3: number;
   }
 
   const [commitInput, setCommitInput] = useState<CommitInput>({
-    input1: 0,
-    input2: 0,
+    price0: 0,
+    price1: 0,
+    price2: 0,
+    price3: 0,
   });
 
+  const [userCommit, setUserCommit] = useState("");
+
   const handleCommitInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setCommitInput(prevCommitInput => ({
-      ...prevCommitInput,
-      [name]: value,
-    }));
+    try {
+      const { name, value } = event.target;
+      setCommitInput(prevCommitInput => ({
+        ...prevCommitInput,
+        [name]: value,
+      }));
+
+      // const commit = getCommitInBytes(
+      //   ethers.utils.parseEther(commitInput.price0.toString()),
+      //   ethers.utils.parseEther(commitInput.price1.toString()),
+      //   ethers.utils.parseEther(commitInput.price2.toString()),
+      //   ethers.utils.parseEther(commitInput.price3.toString()),
+      // );
+      // setUserCommit(commit);
+      // console.log(commitInput);
+    } catch (error) {
+      // Code to handle the exception
+      console.error("An error occurred:", error);
+    }
   };
-  const [userCommit, setUserCommit] = useState("0x56553487f6661fa95bc98d8e92fd6d0332ce008bf8fce601aba2e2ef1846136e");
 
   const handleCommit = (event: React.FormEvent) => {
     event.preventDefault();
-    // Perform commit logic here
-    const commit = getCommitInBytes(
-      ethers.utils.parseEther(commitInput.input1.toString()),
-      ethers.utils.parseEther(commitInput.input2.toString()),
-      ethers.utils.parseEther("10"),
-      ethers.utils.parseEther("10"),
-      // ethers.utils.parseEther("10"),
-      // ethers.utils.parseEther("10"),
-    );
-    setUserCommit(commit);
-    console.log(`The commit is: ${commit}`);
+    // const commit = getCommitInBytes(
+    //   ethers.utils.parseEther(commitInput.price0.toString()),
+    //   ethers.utils.parseEther(commitInput.price1.toString()),
+    //   ethers.utils.parseEther(commitInput.price2.toString()),
+    //   ethers.utils.parseEther(commitInput.price3.toString()),
+    // );
+    // setUserCommit(commit);
+    console.log(`The commit is: ${userCommit}`);
     writeAsync();
   };
+
+  useEffect(() => {
+    const commit = getCommitInBytes(
+      ethers.utils.parseEther(commitInput.price0.toString()),
+      ethers.utils.parseEther(commitInput.price1.toString()),
+      ethers.utils.parseEther(commitInput.price2.toString()),
+      ethers.utils.parseEther(commitInput.price3.toString()),
+    );
+    setUserCommit(commit);
+  }, [commitInput]);
 
   const router = useRouter();
 
@@ -59,17 +85,12 @@ const Address: NextPage = () => {
     address: address,
   });
 
-  //const mystr = "0x56553487f6661fa95bc98d8e92fd6d0332ce008bf8fce601aba2e2ef1846136e";
-
-  // 0x0x56553487f6661fa95bc98d8e92fd6d0332ce008bf8fce601aba2e2ef1846136e
-
   const { writeAsync, isLoading } = useCustomContractWrite({
     contractName: "MonthlyCPI",
     functionName: "commit",
     //address: address,
-    address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
+    address: "0x36C02dA8a0983159322a80FFE9F24b1acfF8B570",
     args: [userCommit],
-    //args: [mystr],
   });
 
   return (
@@ -90,21 +111,38 @@ const Address: NextPage = () => {
               <p className="mt-2">Commit description goes here...</p>
               <form onSubmit={handleCommit}>
                 <input
-                  type="text"
+                  type="number"
                   className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
                   placeholder="Enter number 1..."
-                  name="input1"
-                  value={commitInput.input1.toString()}
+                  name="price0"
+                  value={commitInput.price0.toString()}
                   onChange={handleCommitInputChange}
                 />
                 <input
-                  type="text"
+                  type="number"
                   className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
                   placeholder="Enter number 2..."
-                  name="input2"
-                  value={commitInput.input2.toString()}
+                  name="price1"
+                  value={commitInput.price1.toString()}
                   onChange={handleCommitInputChange}
                 />
+                <input
+                  type="number"
+                  className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
+                  placeholder="Enter number 3..."
+                  name="price2"
+                  value={commitInput.price2.toString()}
+                  onChange={handleCommitInputChange}
+                />
+                <input
+                  type="number"
+                  className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
+                  placeholder="Enter number 4..."
+                  name="price3"
+                  value={commitInput.price3.toString()}
+                  onChange={handleCommitInputChange}
+                />
+                <br />
                 <button type="submit" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
                   Commit
                 </button>
