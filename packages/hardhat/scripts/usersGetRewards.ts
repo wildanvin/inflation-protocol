@@ -1,10 +1,10 @@
 // scripts/interactWithContract.ts
 
-import { BigNumber } from "ethers";
+import { factoryCPI } from "./adresses";
 import { ethers } from "hardhat";
 
 async function main() {
-  const contractAddress = "0x21dF544947ba3E8b3c32561399E88B52Dc8b2823"; // Replace with your contract address
+  const contractAddress = factoryCPI;
 
   //const account = (await ethers.getSigners())[5];
   const [account0, account1, account2, account3] = await ethers.getSigners();

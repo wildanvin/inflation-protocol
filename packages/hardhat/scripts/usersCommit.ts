@@ -2,6 +2,7 @@
 
 import { BigNumber } from "ethers";
 import { ethers } from "hardhat";
+import { monthlyCPI } from "./adresses";
 
 async function main() {
   function getCommitInBytes(price0: BigNumber, price1: BigNumber, price2: BigNumber, price3: BigNumber): string {
@@ -20,7 +21,7 @@ async function main() {
     price3 = 75000  * 10**18;  //$75000 colombian pesos   for Internet 10 mbps upload speed (1 month)
   */
 
-  const contractAddress = "0x5ba27ad1887e733bBA6f44B730A8Df9Bf9afc988"; // Replace with your contract address
+  const contractAddress = monthlyCPI;
   const commit0 = getCommitInBytes(
     ethers.utils.parseEther("770"),
     ethers.utils.parseEther("3200"),

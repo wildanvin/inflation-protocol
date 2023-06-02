@@ -1,6 +1,7 @@
 // scripts/interactWithContract.ts
 
-import { BigNumber } from "ethers";
+import { monthlyCPI } from "./adresses";
+
 import { ethers } from "hardhat";
 
 async function main() {
@@ -11,7 +12,7 @@ async function main() {
     price3 = 75000  * 10**18;  //$75000 colombian pesos   for Internet 10 mbps upload speed (1 month)
   */
 
-  const contractAddress = "0x5ba27ad1887e733bBA6f44B730A8Df9Bf9afc988"; // Replace with your contract address
+  const contractAddress = monthlyCPI;
 
   //const account = (await ethers.getSigners())[5];
   const [account0, account1, account2, account3] = await ethers.getSigners();
@@ -23,8 +24,8 @@ async function main() {
   const tx0 = await contract0.reveal(
     ethers.utils.parseEther("770"),
     ethers.utils.parseEther("3200"),
-    ethers.utils.parseEther("4500"),
-    ethers.utils.parseEther("75500"),
+    ethers.utils.parseEther("5000"),
+    ethers.utils.parseEther("85500"),
   );
   console.log("Revealed from address:", account0.address);
   await tx0.wait();
