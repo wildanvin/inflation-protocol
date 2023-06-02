@@ -5,7 +5,7 @@ const contracts = {
       chainId: "31337",
       contracts: {
         YourContract: {
-          address: "0x7A9Ec1d04904907De0ED7b6839CcdD59c3716AC9",
+          address: "0x720472c8ce72c2A2D711333e064ABD3E6BbEAdd3",
           abi: [
             {
               inputs: [
@@ -147,7 +147,7 @@ const contracts = {
           ],
         },
         MonthlyCPI: {
-          address: "0x49fd2BE640DB2910c2fAb69bB8531Ab6E76127ff",
+          address: "0xe8D2A1E88c91DCd5433208d4152Cc4F399a7e91d",
           abi: [
             {
               inputs: [],
@@ -491,7 +491,7 @@ const contracts = {
           ],
         },
         FactoryCPI: {
-          address: "0x4631BCAbD6dF18D94796344963cB60d44a4136b6",
+          address: "0x5067457698Fd6Fa1C6964e416b3f42713513B3dD",
           abi: [
             {
               inputs: [],
@@ -713,6 +713,46 @@ const contracts = {
                   internalType: "contract MonthlyCPI[]",
                   name: "",
                   type: "address[]",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "getPercentagesArray",
+              outputs: [
+                {
+                  components: [
+                    {
+                      internalType: "int256",
+                      name: "price0",
+                      type: "int256",
+                    },
+                    {
+                      internalType: "int256",
+                      name: "price1",
+                      type: "int256",
+                    },
+                    {
+                      internalType: "int256",
+                      name: "price2",
+                      type: "int256",
+                    },
+                    {
+                      internalType: "int256",
+                      name: "price3",
+                      type: "int256",
+                    },
+                    {
+                      internalType: "int256",
+                      name: "total",
+                      type: "int256",
+                    },
+                  ],
+                  internalType: "struct FactoryCPI.Percentages[]",
+                  name: "",
+                  type: "tuple[]",
                 },
               ],
               stateMutability: "view",

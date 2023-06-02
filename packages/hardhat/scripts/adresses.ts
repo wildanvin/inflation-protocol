@@ -1,2 +1,2 @@
-export const factoryCPI = "0x4631BCAbD6dF18D94796344963cB60d44a4136b6";
-export const monthlyCPI = "0x5cE62298E43aa907D94315eb6b6883c7734cD3C6";
+export const factoryCPI = "0x5067457698Fd6Fa1C6964e416b3f42713513B3dD";
+export const monthlyCPI = "0x1E97288A0a34915E79A9de99a9f76434e84DBC86";
