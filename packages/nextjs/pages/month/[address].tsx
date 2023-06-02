@@ -3,77 +3,68 @@ import { useRouter } from "next/router";
 import { useCustomContractRead, useCustomContractWrite } from "../../hooks/scaffold-eth";
 import { BigNumber, ethers } from "ethers";
 import type { NextPage } from "next";
+import { Commit } from "~~/components/Commit";
 
 const Address: NextPage = () => {
-  function getCommitInBytes(price0: BigNumber, price1: BigNumber, price2: BigNumber, price3: BigNumber): string {
-    const encodedData = ethers.utils.solidityPack(
-      ["uint256", "uint256", "uint256", "uint256"],
-      [price0, price1, price2, price3],
-    );
-    const hash = ethers.utils.keccak256(encodedData);
-    return hash;
-  }
+  // function getCommitInBytes(price0: BigNumber, price1: BigNumber, price2: BigNumber, price3: BigNumber): string {
+  //   const encodedData = ethers.utils.solidityPack(
+  //     ["uint256", "uint256", "uint256", "uint256"],
+  //     [price0, price1, price2, price3],
+  //   );
+  //   const hash = ethers.utils.keccak256(encodedData);
+  //   return hash;
+  // }
 
-  interface CommitInput {
-    price0: number;
-    price1: number;
-    price2: number;
-    price3: number;
-  }
+  // interface CommitInput {
+  //   price0: number;
+  //   price1: number;
+  //   price2: number;
+  //   price3: number;
+  // }
 
-  const [commitInput, setCommitInput] = useState<CommitInput>({
-    price0: 0,
-    price1: 0,
-    price2: 0,
-    price3: 0,
-  });
+  // const [commitInput, setCommitInput] = useState<CommitInput>({
+  //   price0: 0,
+  //   price1: 0,
+  //   price2: 0,
+  //   price3: 0,
+  // });
 
-  const [userCommit, setUserCommit] = useState("");
+  // const [userCommit, setUserCommit] = useState("");
 
-  const handleCommitInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      const { name, value } = event.target;
-      setCommitInput(prevCommitInput => ({
-        ...prevCommitInput,
-        [name]: value,
-      }));
+  // const handleCommitInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   try {
+  //     const { name, value } = event.target;
+  //     setCommitInput(prevCommitInput => ({
+  //       ...prevCommitInput,
+  //       [name]: value,
+  //     }));
+  //   } catch (error) {
+  //     console.error("An error occurred:", error);
+  //   }
+  // };
 
-      // const commit = getCommitInBytes(
-      //   ethers.utils.parseEther(commitInput.price0.toString()),
-      //   ethers.utils.parseEther(commitInput.price1.toString()),
-      //   ethers.utils.parseEther(commitInput.price2.toString()),
-      //   ethers.utils.parseEther(commitInput.price3.toString()),
-      // );
-      // setUserCommit(commit);
-      // console.log(commitInput);
-    } catch (error) {
-      // Code to handle the exception
-      console.error("An error occurred:", error);
-    }
-  };
+  // const handleCommit = (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   writeAsync();
+  // };
 
-  const handleCommit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // const commit = getCommitInBytes(
-    //   ethers.utils.parseEther(commitInput.price0.toString()),
-    //   ethers.utils.parseEther(commitInput.price1.toString()),
-    //   ethers.utils.parseEther(commitInput.price2.toString()),
-    //   ethers.utils.parseEther(commitInput.price3.toString()),
-    // );
-    // setUserCommit(commit);
-    console.log(`The commit is: ${userCommit}`);
-    writeAsync();
-  };
+  // useEffect(() => {
+  //   const commit = getCommitInBytes(
+  //     ethers.utils.parseEther(commitInput.price0.toString()),
+  //     ethers.utils.parseEther(commitInput.price1.toString()),
+  //     ethers.utils.parseEther(commitInput.price2.toString()),
+  //     ethers.utils.parseEther(commitInput.price3.toString()),
+  //   );
+  //   setUserCommit(commit);
+  // }, [commitInput]);
 
-  useEffect(() => {
-    const commit = getCommitInBytes(
-      ethers.utils.parseEther(commitInput.price0.toString()),
-      ethers.utils.parseEther(commitInput.price1.toString()),
-      ethers.utils.parseEther(commitInput.price2.toString()),
-      ethers.utils.parseEther(commitInput.price3.toString()),
-    );
-    setUserCommit(commit);
-  }, [commitInput]);
+  // const { writeAsync, isLoading } = useCustomContractWrite({
+  //   contractName: "MonthlyCPI",
+  //   functionName: "commit",
+  //   //address: address,
+  //   address: "0x36C02dA8a0983159322a80FFE9F24b1acfF8B570",
+  //   args: [userCommit],
+  // });
 
   const router = useRouter();
 
@@ -85,19 +76,11 @@ const Address: NextPage = () => {
     address: address,
   });
 
-  const { writeAsync, isLoading } = useCustomContractWrite({
-    contractName: "MonthlyCPI",
-    functionName: "commit",
-    //address: address,
-    address: "0x36C02dA8a0983159322a80FFE9F24b1acfF8B570",
-    args: [userCommit],
-  });
-
   return (
     <>
-      {/* <div>Hello {address}</div>
+      <div>Hello {address}</div>
       <div>Time at deploy is: {Number(timeAtDeploy)}</div>
-      <button onClick={writeAsync}>click me</button> */}
+
       <div>
         <header className="py-10 px-8">
           <h1 className="text-4xl font-bold">Reveal Commit App</h1>
@@ -106,7 +89,8 @@ const Address: NextPage = () => {
 
         <main className="container mx-auto py-10 px-8">
           <div className="grid grid-cols-3 gap-8">
-            <div className="flex flex-col">
+            <Commit address={address} />
+            {/* <div className="flex flex-col">
               <h2 className="text-2xl font-bold">Commit</h2>
               <p className="mt-2">Commit description goes here...</p>
               <form onSubmit={handleCommit}>
@@ -147,7 +131,7 @@ const Address: NextPage = () => {
                   Commit
                 </button>
               </form>
-            </div>
+            </div> */}
 
             <div className="flex flex-col">
               <h2 className="text-2xl font-bold">Reveal</h2>
