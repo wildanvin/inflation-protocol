@@ -69,42 +69,66 @@ export const Commit: React.FC<CommitProps> = ({ address }) => {
     args: [userCommit],
   });
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col border border-gray-300 rounded-lg shadow-md px-6 py-6">
       <h2 className="text-2xl font-bold">Commit</h2>
       <p className="mt-2">Commit description goes here...</p>
       <form onSubmit={handleCommit}>
-        <input
-          type="number"
-          className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
-          placeholder="Enter number 1..."
-          name="price0"
-          value={commitInput.price0.toString()}
-          onChange={handleCommitInputChange}
-        />
-        <input
-          type="number"
-          className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
-          placeholder="Enter number 2..."
-          name="price1"
-          value={commitInput.price1.toString()}
-          onChange={handleCommitInputChange}
-        />
-        <input
-          type="number"
-          className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
-          placeholder="Enter number 3..."
-          name="price2"
-          value={commitInput.price2.toString()}
-          onChange={handleCommitInputChange}
-        />
-        <input
-          type="number"
-          className="mt-4 p-2 border border-gray-300 rounded text-gray-900"
-          placeholder="Enter number 4..."
-          name="price3"
-          value={commitInput.price3.toString()}
-          onChange={handleCommitInputChange}
-        />
+        <div className="mt-4">
+          <label htmlFor="price0" className="block">
+            1 kw-hour:
+          </label>
+          <input
+            type="number"
+            id="price0"
+            className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
+            placeholder="Enter number 1..."
+            name="price0"
+            value={commitInput.price0.toString()}
+            onChange={handleCommitInputChange}
+          />
+        </div>
+        <div className="mt-4">
+          <label htmlFor="price1" className="block">
+            1 liter of gas:
+          </label>
+          <input
+            type="number"
+            id="price1"
+            className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
+            placeholder="Enter number 2..."
+            name="price1"
+            value={commitInput.price1.toString()}
+            onChange={handleCommitInputChange}
+          />
+        </div>
+        <div className="mt-4">
+          <label htmlFor="price2" className="block">
+            1 liter of milk:
+          </label>
+          <input
+            type="number"
+            id="price2"
+            className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
+            placeholder="Enter number 3..."
+            name="price2"
+            value={commitInput.price2.toString()}
+            onChange={handleCommitInputChange}
+          />
+        </div>
+        <div className="mt-4">
+          <label htmlFor="price3" className="block">
+            Internet at 10 mbps upload speed (1 month):
+          </label>
+          <input
+            type="number"
+            id="price3"
+            className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
+            placeholder="Enter number 4..."
+            name="price3"
+            value={commitInput.price3.toString()}
+            onChange={handleCommitInputChange}
+          />
+        </div>
         <br />
         <button type="submit" className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
           Commit

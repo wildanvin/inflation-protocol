@@ -54,7 +54,7 @@ contract MonthlyCPI {
     uint public price0Avg = 700  * 10**18;  //$700 colombian pesos for 1 kw-hour
     uint public price1Avg = 3100 * 10**18;  //$3100 comlombian pesos for 1 liter of gas
     uint public price2Avg = 4600 * 10**18;  //$4600 colombian pesos for 1 liter of milk
-    uint public price3Avg = 75000  * 10**18;  //$75000 colombian pesos   for Internet 10 mbps upload speed (1 month)
+    uint public price3Avg = 75000  * 10**18;  //$75000 colombian pesos for Internet 10 mbps upload speed (1 month)
     uint public timeAtDeploy;
 
     modifier notRevealed {
