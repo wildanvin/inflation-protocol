@@ -1,3 +1,11 @@
+# Temp
+
+We are going to need to run some scripts for the demo because we are going to need to advance in time. In order to run the scripts change to the hardhat directory and run:
+
+```bash
+npx hardhat run scripts/<your_script>.ts
+```
+
 # 🏗 Scaffold-ETH 2
 
 🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
@@ -10,15 +18,25 @@
 
 ## Contents
 
-- [Requirements](#requirements)
-- [Quickstart](#quickstart)
-- [Deploying your Smart Contracts to a Live Network](#deploying-your-smart-contracts-to-a-live-network)
-- [Deploying your NextJS App](#deploying-your-nextjs-app)
-- [Disabling Type & Linting Error Checks](#disabling-type-and-linting-error-checks)
-  - [Disabling commit checks](#disabling-commit-checks)
-  - [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
-  - [Disabling Github Workflow](#disabling-github-workflow)
-- [Contributing to Scaffold-ETH 2](#contributing-to-scaffold-eth-2)
+- [Temp](#temp)
+- [🏗 Scaffold-ETH 2](#-scaffold-eth-2)
+  - [Contents](#contents)
+  - [Requirements](#requirements)
+  - [Quickstart](#quickstart)
+  - [Deploying your Smart Contracts to a Live Network](#deploying-your-smart-contracts-to-a-live-network)
+  - [Deploying your NextJS App](#deploying-your-nextjs-app)
+  - [Hook Example](#hook-example)
+    - [useScaffoldContractRead:](#usescaffoldcontractread)
+    - [useScaffoldContractWrite:](#usescaffoldcontractwrite)
+    - [useScaffoldEventSubscriber:](#usescaffoldeventsubscriber)
+    - [useScaffoldEventHistory:](#usescaffoldeventhistory)
+    - [useDeployedContractInfo:](#usedeployedcontractinfo)
+    - [useScaffoldContract:](#usescaffoldcontract)
+  - [Disabling type and linting error checks](#disabling-type-and-linting-error-checks)
+    - [Disabling commit checks](#disabling-commit-checks)
+    - [Deploying to Vercel without any checks](#deploying-to-vercel-without-any-checks)
+    - [Disabling Github Workflow](#disabling-github-workflow)
+  - [Contributing to Scaffold-ETH 2](#contributing-to-scaffold-eth-2)
 
 ## Requirements
 
@@ -138,10 +156,10 @@ Use this hook to read a value from your deployed contracts.
 
 ```ts
 const { data: totalCounter } = useScaffoldContractRead({
-  contractName: "YourContract",
-  functionName: "getGreeting",
-  args: ["ARGUMENTS IF THE FUNCTION ACCEPTS ANY"],
-});
+  contractName: 'YourContract',
+  functionName: 'getGreeting',
+  args: ['ARGUMENTS IF THE FUNCTION ACCEPTS ANY'],
+})
 ```
 
 ### useScaffoldContractWrite:
@@ -150,12 +168,12 @@ Use this hook to write to your deployed contracts.
 
 ```ts
 const { writeAsync, isLoading } = useScaffoldContractWrite({
-  contractName: "YourContract",
-  functionName: "setGreeting",
-  args: ["The value to set"],
+  contractName: 'YourContract',
+  functionName: 'setGreeting',
+  args: ['The value to set'],
   //value if the function is payable and sends eth to it
-  value: "0.01",
-});
+  value: '0.01',
+})
 ```
 
 ### useScaffoldEventSubscriber:
@@ -164,14 +182,14 @@ Use this to listen for an event emitted in the deployed smart contracts.
 
 ```ts
 useScaffoldEventSubscriber({
-  contractName: "YourContract",
-  eventName: "GreetingChange",
+  contractName: 'YourContract',
+  eventName: 'GreetingChange',
   //parameters that the event emits
   //event GreetingChange(address greetingSetter, string newGreeting, bool premium, uint256 value);
   listener: (greetingSetter, newGreeting, premium, value) => {
-    console.log(greetingSetter, newGreeting, premium, value);
+    console.log(greetingSetter, newGreeting, premium, value)
   },
-});
+})
 ```
 
 ### useScaffoldEventHistory:
@@ -200,7 +218,7 @@ Use this hook to get the matching contract info from the contracts file generate
 
 ```ts
 //contractName: name of the deployed contract
-const { data: deployedContractData } = useDeployedContractInfo(contractName);
+const { data: deployedContractData } = useDeployedContractInfo(contractName)
 ```
 
 ### useScaffoldContract:
@@ -210,24 +228,24 @@ Can also be use to read and write to the deployed smart contract
 
 ```ts
 const { data: yourContract } = useScaffoldContract({
-  contractName: "YourContract",
-});
+  contractName: 'YourContract',
+})
 // will return the greeting and can be call in any function unlike useScaffoldContractRead
-await yourContract?.greeting();
+await yourContract?.greeting()
 
 //can be use to write to a contract and can be called in any function
-import { Signer } from "ethers";
-import { useSigner } from "wagmi";
+import { Signer } from 'ethers'
+import { useSigner } from 'wagmi'
 
-const { data: signer, isError, isLoading } = useSigner();
+const { data: signer, isError, isLoading } = useSigner()
 const { data: yourContract } = useScaffoldContract({
-  contractName: "YourContract",
+  contractName: 'YourContract',
   signerOrProvider: signer as Signer,
-});
+})
 const setGreeting = async () => {
   //call the method in any function
-  await yourContract?.setGreeting("the greeting here");
-};
+  await yourContract?.setGreeting('the greeting here')
+}
 ```
 
 ## Disabling type and linting error checks
