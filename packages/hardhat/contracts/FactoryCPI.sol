@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract FactoryCPI is ERC20 {
 
     constructor() ERC20("InfCOL", "ICOP") {
-        _mint(0xDead0000371e0a9EC309d84586dE645a6897E613, 3000000000 * 10 ** decimals());
+        _mint(0xDead0000371e0a9EC309d84586dE645a6897E613, 1000 * 10 ** decimals());
 
         //Genesis Month
         MonthlyCPI cpi = new MonthlyCPI();
