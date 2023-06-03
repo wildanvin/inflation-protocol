@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 import { Claim } from "~~/components/Claim";
 import { Commit } from "~~/components/Commit";
 import { Reveal } from "~~/components/Reveal";
+import { Address as AddressComp } from "~~/components/scaffold-eth";
 
 const Address: NextPage = () => {
   const router = useRouter();
@@ -16,15 +17,17 @@ const Address: NextPage = () => {
     address: address,
   });
 
+  function formatDate(unixTimestamp: any) {
+    const date = new Date(unixTimestamp * 1000);
+    return date.toLocaleDateString("en-us", { year: "numeric", month: "short" });
+  }
+
   return (
     <>
-      <div>Hello {address}</div>
-      <div>Time at deploy is: {Number(timeAtDeploy)}</div>
-
       <div>
-        <header className="py-10 px-8">
-          <h1 className="text-4xl font-bold">Reveal Commit App</h1>
-          <p className="mt-4 text-lg">App description goes here...</p>
+        <header className="pt-10 pb-0 px-8">
+          <h1 className="text-4xl font-bold">Data for: {formatDate(timeAtDeploy)}</h1>
+          <AddressComp address={address} />
         </header>
 
         <main className="container mx-auto py-10 px-8">
@@ -35,12 +38,6 @@ const Address: NextPage = () => {
             <Commit address={address} />
             <Reveal address={address} />
             <Claim />
-
-            {/* <div className="flex flex-col">
-              <h2 className="text-2xl font-bold">Claim Reward</h2>
-              <p className="mt-2">Claim reward description goes here...</p>
-              <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Claim Reward</button>
-            </div> */}
           </div>
         </main>
       </div>

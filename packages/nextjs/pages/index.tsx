@@ -16,7 +16,7 @@ const Home: NextPage = () => {
     functionName: "getPercentagesArray",
   });
 
-  const productNames = ["Product 1", "Product 2", "Product 3", "Product 4", "TOTAL"];
+  const productNames = ["Kw-hour", "Gas", "Milk", "Internet", "TOTAL"];
 
   return (
     <>
@@ -28,8 +28,8 @@ const Home: NextPage = () => {
       <div className="grid grid-cols-3 gap-4 p-4 md:p-8">
         {cpisArray?.map((address, index) => (
           <Link key={address} href={`/month/${address}`}>
-            <div className="bg-gray-200 p-4 rounded-lg">
-              <span className="text-gray-800">
+            <div className="bg-gray-200 p-4 rounded-lg flex items-center justify-center">
+              <span className="text-gray-800 flex">
                 <Address address={address} />
               </span>
             </div>
@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             .slice(0, 5)
             .map(value => value.toNumber() / 1000);
           return (
-            <div key={index} className="bg-gray-200 p-4 rounded-lg">
+            <div key={index} className="bg-gray-200 p-4 rounded-lg flex items-center justify-center">
               {numericValues.map((value, i) => (
                 <div key={i}>
                   <span className="text-gray-800">{productNames[i]}: </span>

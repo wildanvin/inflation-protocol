@@ -25,9 +25,10 @@ export const Reveal: React.FC<RevealProps> = ({ address }) => {
   const handleRevealInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
       const { name, value } = event.target;
+
       setRevealInput(prevRevealInput => ({
         ...prevRevealInput,
-        [name]: value,
+        [name]: value == "" ? 0 : value,
       }));
     } catch (error) {
       console.error("An error occurred:", error);
@@ -52,7 +53,7 @@ export const Reveal: React.FC<RevealProps> = ({ address }) => {
   });
   return (
     <div className="flex flex-col border border-gray-300 rounded-lg shadow-md px-6 py-6">
-      <h2 className="text-2xl font-bold">Reveal</h2>
+      <h2 className="text-2xl font-bold">2. Reveal</h2>
       <p className="mt-2">Reveal description goes here...</p>
       <form onSubmit={handleReveal}>
         <div className="mt-4">
@@ -63,7 +64,7 @@ export const Reveal: React.FC<RevealProps> = ({ address }) => {
             type="number"
             id="price0"
             className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
-            placeholder="Enter number 1..."
+            placeholder="Enter price..."
             name="price0"
             value={revealInput.price0.toString()}
             onChange={handleRevealInputChange}
@@ -77,7 +78,7 @@ export const Reveal: React.FC<RevealProps> = ({ address }) => {
             type="number"
             id="price1"
             className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
-            placeholder="Enter number 2..."
+            placeholder="Enter price..."
             name="price1"
             value={revealInput.price1.toString()}
             onChange={handleRevealInputChange}
@@ -91,7 +92,7 @@ export const Reveal: React.FC<RevealProps> = ({ address }) => {
             type="number"
             id="price2"
             className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
-            placeholder="Enter number 3..."
+            placeholder="Enter price..."
             name="price2"
             value={revealInput.price2.toString()}
             onChange={handleRevealInputChange}
@@ -105,7 +106,7 @@ export const Reveal: React.FC<RevealProps> = ({ address }) => {
             type="number"
             id="price3"
             className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
-            placeholder="Enter number 4..."
+            placeholder="Enter price..."
             name="price3"
             value={revealInput.price3.toString()}
             onChange={handleRevealInputChange}

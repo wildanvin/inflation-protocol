@@ -39,7 +39,7 @@ export const Commit: React.FC<CommitProps> = ({ address }) => {
       const { name, value } = event.target;
       setCommitInput(prevCommitInput => ({
         ...prevCommitInput,
-        [name]: value,
+        [name]: value == "" ? 0 : value,
       }));
     } catch (error) {
       console.error("An error occurred:", error);
@@ -52,13 +52,17 @@ export const Commit: React.FC<CommitProps> = ({ address }) => {
   };
 
   useEffect(() => {
-    const commit = getCommitInBytes(
-      ethers.utils.parseEther(commitInput.price0.toString()),
-      ethers.utils.parseEther(commitInput.price1.toString()),
-      ethers.utils.parseEther(commitInput.price2.toString()),
-      ethers.utils.parseEther(commitInput.price3.toString()),
-    );
-    setUserCommit(commit);
+    try {
+      const commit = getCommitInBytes(
+        ethers.utils.parseEther(commitInput.price0.toString()),
+        ethers.utils.parseEther(commitInput.price1.toString()),
+        ethers.utils.parseEther(commitInput.price2.toString()),
+        ethers.utils.parseEther(commitInput.price3.toString()),
+      );
+      setUserCommit(commit);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   }, [commitInput]);
 
   const { writeAsync, isLoading } = useCustomContractWrite({
@@ -69,7 +73,7 @@ export const Commit: React.FC<CommitProps> = ({ address }) => {
   });
   return (
     <div className="flex flex-col border border-gray-300 rounded-lg shadow-md px-6 py-6">
-      <h2 className="text-2xl font-bold">Commit</h2>
+      <h2 className="text-2xl font-bold">1. Commit</h2>
       <p className="mt-2">Commit description goes here...</p>
       <form onSubmit={handleCommit}>
         <div className="mt-4">
@@ -80,7 +84,7 @@ export const Commit: React.FC<CommitProps> = ({ address }) => {
             type="number"
             id="price0"
             className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
-            placeholder="Enter number 1..."
+            placeholder="Enter price..."
             name="price0"
             value={commitInput.price0.toString()}
             onChange={handleCommitInputChange}
@@ -94,7 +98,7 @@ export const Commit: React.FC<CommitProps> = ({ address }) => {
             type="number"
             id="price1"
             className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
-            placeholder="Enter number 2..."
+            placeholder="Enter price..."
             name="price1"
             value={commitInput.price1.toString()}
             onChange={handleCommitInputChange}
@@ -108,7 +112,7 @@ export const Commit: React.FC<CommitProps> = ({ address }) => {
             type="number"
             id="price2"
             className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
-            placeholder="Enter number 3..."
+            placeholder="Enter price..."
             name="price2"
             value={commitInput.price2.toString()}
             onChange={handleCommitInputChange}
@@ -122,7 +126,7 @@ export const Commit: React.FC<CommitProps> = ({ address }) => {
             type="number"
             id="price3"
             className="mt-1 p-2 border border-gray-300 rounded text-gray-900"
-            placeholder="Enter number 4..."
+            placeholder="Enter price..."
             name="price3"
             value={commitInput.price3.toString()}
             onChange={handleCommitInputChange}
