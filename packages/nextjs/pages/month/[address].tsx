@@ -35,9 +35,9 @@ const Address: NextPage = () => {
             {/* <Commit address={"0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d"} />
             <Reveal address={"0x1fA02b2d6A771842690194Cf62D91bdd92BfE28d"} /> */}
 
-            <Commit address={address} />
-            <Reveal address={address} />
-            <Claim />
+            <Commit address={address} time={timeAtDeploy} />
+            <Reveal address={address} time={timeAtDeploy} />
+            <Claim time={timeAtDeploy} />
           </div>
         </main>
       </div>

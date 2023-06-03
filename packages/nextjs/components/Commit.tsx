@@ -5,6 +5,7 @@ import { BigNumber, ethers } from "ethers";
 
 interface CommitProps {
   address: string;
+  time: BigNumber | undefined;
 }
 
 interface CommitInput {
@@ -14,7 +15,7 @@ interface CommitInput {
   price3: number;
 }
 
-export const Commit: React.FC<CommitProps> = ({ address }) => {
+export const Commit: React.FC<CommitProps> = ({ address, time }) => {
   //return <div>Hello from Commit comp with address {address}</div>;
   function getCommitInBytes(price0: BigNumber, price1: BigNumber, price2: BigNumber, price3: BigNumber): string {
     const encodedData = ethers.utils.solidityPack(
@@ -71,10 +72,47 @@ export const Commit: React.FC<CommitProps> = ({ address }) => {
     address: address,
     args: [userCommit], //this is a weird error from wagmi
   });
+
+  /*
+  HANDLE DATES:
+  */
+
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  };
+
+  function formatDate(unixTimestamp: any) {
+    const date = new Date(unixTimestamp * 1000);
+    return date.toLocaleDateString(undefined, options);
+  }
+
+  function addDaysToUnixTimestamp(unixTimestamp: any, days: any) {
+    const millisecondsPerDay = 86400000; // 1 day = 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
+    const timestampInMilliseconds = unixTimestamp * 1000; // Convert Unix timestamp to milliseconds
+    const targetTimestamp = timestampInMilliseconds + days * millisecondsPerDay;
+    const targetUnixTimestamp = Math.floor(targetTimestamp / 1000); // Convert back to Unix timestamp
+    return targetUnixTimestamp;
+  }
+
   return (
     <div className="flex flex-col border border-gray-300 rounded-lg shadow-md px-6 py-6">
       <h2 className="text-2xl font-bold">1. Commit</h2>
-      <p className="mt-2">Commit description goes here...</p>
+      <p className="my-0">
+        {" "}
+        <b>From: </b>
+        {formatDate(time)}
+      </p>
+      <p>
+        {" "}
+        <b>To: </b>
+        {formatDate(addDaysToUnixTimestamp(time, 3))}
+      </p>
+
       <form onSubmit={handleCommit}>
         <div className="mt-4">
           <label htmlFor="price0" className="block">
