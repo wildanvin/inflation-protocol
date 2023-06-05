@@ -1,41 +1,6 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-/*
-
-There will be a factory that will create the MonthlyCPI each month using chainlink automation
-They will be created the 21 of each month
-The 28th  prices will be revealed. And the CPI will be calculated
-
-DONE:
-
-There needs to be a genesis month to start
-
-function to commit the prices
-
-funcnction when the prices are revealed 
-
-fucntion calculate CPI with the average prices. it will compare with the previous month
-
-
-PENDING:
-
-fucntion if your revealed value is in the range with the mean. you get tolens proportionally 
-to the honest participants and the inflation rate
-
-TOKEN
-
-how much token minted
-
-Advantages:
-Decentralized, trust to the people, results are delivered each month, no trust in third parties, transparent
-Could be integrated in other defi protocols
-
-We can make the factory the erc-20 
-
-*/
-
-
 //Consumer Pirce Index
 contract MonthlyCPI {
 
@@ -156,51 +121,3 @@ contract MonthlyCPI {
     }
 }
 
-
-contract CommitReveal {
-    address public player1;
-    address public player2;
-    bytes32 public commitment;
-    uint256 public player1Choice;
-    uint256 public player2Choice;
-    bool public revealed;
-    
-    constructor(address _player2, bytes32 _commitment) payable {
-        require(msg.value == 1 ether, "Each player must send 1 ether to play");
-        player1 = msg.sender;
-        player2 = _player2;
-        commitment = _commitment;
-    }
-    
-    function reveal(uint256 _choice, bytes32 _secret) public {
-        require(msg.sender == player1 || msg.sender == player2, "You are not authorized to reveal");
-        require(keccak256(abi.encodePacked(_choice, _secret)) == commitment, "Invalid commitment");
-        require(!revealed, "Already revealed");
-        
-        if (msg.sender == player1) {
-            player1Choice = _choice;
-        } else {
-            player2Choice = _choice;
-        }
-        /*
-        if (player1Choice != 0 && player2Choice != 0) {
-            revealed = true;
-            if (player1Choice == player2Choice) {
-                player1.transfer(address(this).balance);
-            } else if (player1Choice == 1 && player2Choice == 2) {
-                player2.transfer(address(this).balance);
-            } else if (player1Choice == 2 && player2Choice == 1) {
-                player1.transfer(address(this).balance);
-            } else if (player1Choice == 1 && player2Choice == 3) {
-                player1.transfer(address(this).balance);
-            } else if (player1Choice == 3 && player2Choice == 1) {
-                player2.transfer(address(this).balance);
-            } else if (player1Choice == 2 && player2Choice == 3) {
-                player2.transfer(address(this).balance);
-            } else {
-                player1.transfer(address(this).balance);
-            }
-        }
-        */
-    }
-}

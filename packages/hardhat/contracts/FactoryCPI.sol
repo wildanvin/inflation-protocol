@@ -81,8 +81,6 @@ contract FactoryCPI is ERC20 {
     } 
 
     function _verifyRevealedAnswers() view internal returns(bool) {
-        //RevealedPrice memory prices =  MonthlyCPI(cpis[counter]).revealedPrice(msg.sender);
-        // RevealedPrice memory revealed =  MonthlyCPI(cpis[counter]).getRevealedPrices(msg.sender);
         (uint price0Reveal, uint price1Reveal, uint price2Reveal, uint price3Reveal) = MonthlyCPI(cpis[counter]).getRevealedPrices(msg.sender);
 
         (uint price0Avg, uint price1Avg, uint price2Avg, uint price3Avg) = MonthlyCPI(cpis[counter]).getAvgPrices();
