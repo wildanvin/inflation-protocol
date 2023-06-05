@@ -49,7 +49,11 @@ contract MonthlyCPI {
     mapping (address => bytes32) public commitment;
     mapping (address => RevealedPrice) public revealedPrice;
     mapping (address => bool) public userRevealed;
+    mapping (address => bool) public rewardClaimed;
+
     address[] public revealedUsers;
+    address public factoryAddress;
+
     //Genesis month prices:
     uint public price0Avg = 700  * 10**18;  //$700 colombian pesos for 1 kw-hour
     uint public price1Avg = 3100 * 10**18;  //$3100 comlombian pesos for 1 liter of gas
@@ -72,8 +76,14 @@ contract MonthlyCPI {
         _;
     }
 
-    constructor () {
+    modifier onlyFactory {
+        require (msg.sender == factoryAddress, "Not Factory");
+        _;
+    }
+
+    constructor (address _factoryAddress) {
         timeAtDeploy = block.timestamp;
+        factoryAddress = _factoryAddress;
     }
 
 
@@ -119,7 +129,9 @@ contract MonthlyCPI {
         return (price0Avg, price1Avg, price2Avg, price3Avg);
     }  
 
-    
+    function setReward(address _claimer) public onlyFactory {
+        rewardClaimed[_claimer] = true;
+    }
 
     function testHash (uint _price0, uint _price1 , uint _price2, uint _price3) public pure returns (bytes32) {
         return keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3));

@@ -10,7 +10,7 @@ contract FactoryCPI is ERC20 {
         _mint(0xDead0000371e0a9EC309d84586dE645a6897E613, 1000 * 10 ** decimals());
 
         //Genesis Month
-        MonthlyCPI cpi = new MonthlyCPI();
+        MonthlyCPI cpi = new MonthlyCPI(address(this));
         cpis.push(cpi);
     }
 
@@ -38,7 +38,7 @@ contract FactoryCPI is ERC20 {
 
     // This function should be called the 15th of each month
     function createMonthlyCPI () public onlyOnceAMonth {
-        MonthlyCPI cpi = new MonthlyCPI();
+        MonthlyCPI cpi = new MonthlyCPI(address(this));
         cpis.push(cpi);
         counter++;
     }
@@ -67,12 +67,15 @@ contract FactoryCPI is ERC20 {
     function claimReward () public onlyAfterCommitReveal{
         
         require(MonthlyCPI(cpis[counter]).userRevealed(msg.sender), "User hasn't revealed");
+        require(MonthlyCPI(cpis[counter]).rewardClaimed(msg.sender) == false, "Already claimed");
+
         require(_verifyRevealedAnswers(), "Wrong answers submitted");
 
         int inflation = percentages[counter - 1].total;
         if ( inflation > 0) {
             uint totalParticipants = MonthlyCPI(cpis[counter]).getTotalParticipants();
             uint reward = (uint(inflation) * totalSupply())/(totalParticipants*100000);
+            MonthlyCPI(cpis[counter]).setReward(msg.sender);
             _mint(msg.sender, uint(reward));
         }
     } 

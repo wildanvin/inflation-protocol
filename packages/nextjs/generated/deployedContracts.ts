@@ -5,10 +5,16 @@ const contracts = {
       chainId: "31337",
       contracts: {
         MonthlyCPI: {
-          address: "0xE3011A37A904aB90C8881a99BD1F6E21401f1522",
+          address: "0xF32D39ff9f6Aa7a7A64d7a4F00a54826Ef791a55",
           abi: [
             {
-              inputs: [],
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "_factoryAddress",
+                  type: "address",
+                },
+              ],
               stateMutability: "nonpayable",
               type: "constructor",
             },
@@ -70,6 +76,19 @@ const contracts = {
                 },
               ],
               stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "factoryAddress",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
               type: "function",
             },
             {
@@ -283,6 +302,38 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "rewardClaimed",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "_claimer",
+                  type: "address",
+                },
+              ],
+              name: "setReward",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "uint256",
                   name: "_price0",
                   type: "uint256",
@@ -349,7 +400,7 @@ const contracts = {
           ],
         },
         FactoryCPI: {
-          address: "0x1f10F3Ba7ACB61b2F50B9d6DdCf91a6f787C0E82",
+          address: "0xd6e1afe5cA8D00A2EFC01B89997abE2De47fdfAf",
           abi: [
             {
               inputs: [],
