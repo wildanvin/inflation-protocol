@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { Balance } from "../components/Balance";
 import { Address } from "../components/scaffold-eth";
 import type { NextPage } from "next";
 import { useScaffoldContractRead } from "~~/hooks/scaffold-eth";
@@ -26,6 +27,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div>
+        <Balance />
         <h1 className="text-4xl font-bold pt-5 px-5 pb-0 mb-0">Months:</h1>
         <div className="grid grid-cols-3 gap-4 p-4 md:p-8">
           {cpisArray?.map((address, index) => (
