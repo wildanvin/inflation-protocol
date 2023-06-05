@@ -25,7 +25,7 @@ to the honest participants and the inflation rate
 
 TOKEN
 
-There are 21 trillion dollars circulating: 21_000_000_000
+how much token minted
 
 Advantages:
 Decentralized, trust to the people, results are delivered each month, no trust in third parties, transparent
