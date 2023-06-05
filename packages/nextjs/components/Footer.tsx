@@ -34,7 +34,7 @@ export const Footer = () => {
             <div>
               Built by{" "}
               <a
-                href="https://buidlguidl.com/"
+                href="https://twitter.com/wildanvin"
                 target="_blank"
                 rel="noreferrer"
                 className="underline underline-offset-2"
