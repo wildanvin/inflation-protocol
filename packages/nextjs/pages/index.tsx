@@ -43,7 +43,7 @@ const Home: NextPage = () => {
             .slice(0, 5)
             .map(value => value.toNumber() / 1000);
           return (
-            <div key={index} className="bg-gray-200 p-4 rounded-lg flex items-center justify-center">
+            <div key={index} className="bg-gray-200 p-4 rounded-lg flex flex-col items-center">
               {numericValues.map((value, i) => (
                 <div key={i}>
                   <span className="text-gray-800">{productNames[i]}: </span>
