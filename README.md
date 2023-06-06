@@ -1,10 +1,44 @@
-# Temp
+# Inflation Protocol
 
-We are going to need to run some scripts for the demo because we are going to need to advance in time. In order to run the scripts change to the hardhat directory and run:
+## Project Description
+
+The Inflation Protocol project explores a blockchain-based approach to track the inflation of a country. The fundamental concept is as follows:
+
+1. Users interact with the contract to provide prices of different products using a commit-reveal mechanism.
+2. After the commit-reveal period concludes, Chainlink Automation is triggered to calculate the price changes.
+3. If the user's provided data falls within a certain range of the calculated prices, they are rewarded with tokens.
+4. Chainlink Automation creates a new contract for users to interact with for the following month, and the process repeats.
+
+## Video Demo
+
+Please find the demo video on [YouTube](pending) and [LensTube](pending).
+
+## Live Demo
+
+A live demo of the project is deployed on [Vercel](pending). Please note that to fully interact with the protocol, you will need to wait until July 15th, 2023, after the genesis month has passed. However, you can still explore the user interface.
+
+## Verified Address
+
+The contracts are verified on Sepolia:
+
+- [FactoryCPI.sol](pending)
+- [MonthlyCPI.sol](pending)
+
+## Project Structure
+
+This project was developed using [Scaffold-Eth-v2](https://github.com/scaffold-eth/scaffold-eth-2), a framework I highly appreciate. It consists of a `hardhat` folder containing everything related to the smart contracts, and a `nextjs` folder containing the frontend components.
+
+### Scripts
+
+The `hardhat` directory includes a `scripts` folder, which contains important scripts for testing the protocol's functionality. These scripts enable you to advance time in your local blockchain and simulate user interactions with the protocol. You can observe their usage in the demo video.
+
+To execute the scripts, navigate to the `hardhat` directory and run the following command:
 
 ```bash
 npx hardhat run scripts/<your_script>.ts
 ```
+
+And now I will leave you with the awesome documentaion of [Scaffold-Eth-v2](https://github.com/scaffold-eth/scaffold-eth-2):
 
 # 🏗 Scaffold-ETH 2
 
@@ -18,7 +52,13 @@ npx hardhat run scripts/<your_script>.ts
 
 ## Contents
 
-- [Temp](#temp)
+- [Inflation Protocol](#inflation-protocol)
+  - [Project Description](#project-description)
+  - [Video Demo](#video-demo)
+  - [Live Demo](#live-demo)
+  - [Verified Address](#verified-address)
+  - [Project Structure](#project-structure)
+    - [Scripts](#scripts)
 - [🏗 Scaffold-ETH 2](#-scaffold-eth-2)
   - [Contents](#contents)
   - [Requirements](#requirements)
