@@ -7,7 +7,7 @@ interface ClaimProps {
 }
 
 export const Claim: React.FC<ClaimProps> = ({ time }) => {
-  const { writeAsync, isLoading } = useScaffoldContractWrite({
+  const { writeAsync } = useScaffoldContractWrite({
     contractName: "FactoryCPI",
     functionName: "claimReward",
   });

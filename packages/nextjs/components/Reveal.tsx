@@ -41,7 +41,7 @@ export const Reveal: React.FC<RevealProps> = ({ address, time }) => {
     writeAsync();
   };
 
-  const { writeAsync, isLoading } = useCustomContractWrite({
+  const { writeAsync } = useCustomContractWrite({
     contractName: "MonthlyCPI",
     functionName: "reveal",
     address: address,

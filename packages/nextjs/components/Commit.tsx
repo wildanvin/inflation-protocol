@@ -66,7 +66,7 @@ export const Commit: React.FC<CommitProps> = ({ address, time }) => {
     }
   }, [commitInput]);
 
-  const { writeAsync, isLoading } = useCustomContractWrite({
+  const { writeAsync } = useCustomContractWrite({
     contractName: "MonthlyCPI",
     functionName: "commit",
     address: address,

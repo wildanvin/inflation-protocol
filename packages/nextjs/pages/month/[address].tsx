@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useCustomContractRead, useCustomContractWrite } from "../../hooks/scaffold-eth";
+import { useCustomContractRead } from "../../hooks/scaffold-eth";
 import type { NextPage } from "next";
 import { Claim } from "~~/components/Claim";
 import { Commit } from "~~/components/Commit";

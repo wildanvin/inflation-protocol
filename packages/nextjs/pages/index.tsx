@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { Balance } from "../components/Balance";
@@ -30,7 +29,7 @@ const Home: NextPage = () => {
         <Balance />
         <h1 className="text-4xl font-bold pt-5 px-5 pb-0 mb-0">Months:</h1>
         <div className="grid grid-cols-3 gap-4 p-4 md:p-8">
-          {cpisArray?.map((address, index) => (
+          {cpisArray?.map(address => (
             <Link key={address} href={`/month/${address}`}>
               <div className="bg-gray-200 p-4 rounded-lg flex items-center justify-center">
                 <span className="text-gray-800 flex">
