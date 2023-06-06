@@ -4,6 +4,10 @@ pragma solidity ^0.8.0;
 import "./MonthlyCPI.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
+/// @title FactoryCPI contract
+/// @author wildanvin
+/// @notice This contract will create MonthlyCPI.sol every month 
+/// @notice The percentage array is where the inlfation percentages change will be stored
 contract FactoryCPI is ERC20 {
 
     constructor() ERC20("InfCOL", "ICOP") {
@@ -24,6 +28,8 @@ contract FactoryCPI is ERC20 {
 
     MonthlyCPI[] public cpis;
     Percentages[] public percentages;
+    
+    /// @notice This counter variable is important because it allows us to be in the right month for performing calculations
     uint public counter;
 
     modifier onlyOnceAMonth {
@@ -36,15 +42,15 @@ contract FactoryCPI is ERC20 {
         _;
     }
 
-    // This function should be called the 15th of each month
+    /// @notice This function should be called the 15th of each month by Chainlink Automation
     function createMonthlyCPI () public onlyOnceAMonth {
         MonthlyCPI cpi = new MonthlyCPI(address(this));
         cpis.push(cpi);
         counter++;
     }
 
-    // This is the function that should be called the 21th of each month
-    // After 6 days: 3 days of commit period and 3 days of reveal period 
+    /// @notice This is the function that should be called the 21th of each month. After the commit-reveal period (6 days)
+    /// @notice The percentages are multiplied by 100000 before dividing to don't lose precision
     function calculateCPI () public onlyAfterCommitReveal{
 
         int price0Old = int(MonthlyCPI(cpis[counter - 1]).price0Avg());
@@ -64,6 +70,8 @@ contract FactoryCPI is ERC20 {
         percentages.push(Percentages(percentage0, percentage1, percentage2, percentage3, total));
     }
 
+    /// @notice This function allows an honest user to claim a reward
+    /// @notice We divide inflation by 100000 to get the "actual" inflation percentage
     function claimReward () public onlyAfterCommitReveal{
         
         require(MonthlyCPI(cpis[counter]).userRevealed(msg.sender), "User hasn't revealed");
@@ -80,6 +88,7 @@ contract FactoryCPI is ERC20 {
         }
     } 
 
+    /// @notice This function returns true if the prices revealed by the user are in +10% or -10% range 
     function _verifyRevealedAnswers() view internal returns(bool) {
         (uint price0Reveal, uint price1Reveal, uint price2Reveal, uint price3Reveal) = MonthlyCPI(cpis[counter]).getRevealedPrices(msg.sender);
 
@@ -104,7 +113,7 @@ contract FactoryCPI is ERC20 {
 
     }
 
-    /// @notice function helper to get a positive value in a substraction. Similar to an absolute value in math. Seems to work fine 
+    /// @notice Function helper to get a positive value in a substraction. Similar to an absolute value in math. Seems to work fine 
     function _positiveSubstraction (uint a, uint b) internal pure returns (uint){
         if (a < b){
             return (b-a);

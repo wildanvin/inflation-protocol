@@ -1,7 +1,10 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-//Consumer Pirce Index
+/// @title MonthlyCPI contract
+/// @author wildanvin
+/// @notice This contract will hold the average prices.
+/// @notice The users will interact with an instance of this contract each month to commit and reveal prices
 contract MonthlyCPI {
 
     struct RevealedPrice {
@@ -19,7 +22,7 @@ contract MonthlyCPI {
     address[] public revealedUsers;
     address public factoryAddress;
 
-    //Genesis month prices:
+    /// @notice These are the genesis month prices:
     uint public price0Avg = 700  * 10**18;  //$700 colombian pesos for 1 kw-hour
     uint public price1Avg = 3100 * 10**18;  //$3100 comlombian pesos for 1 liter of gas
     uint public price2Avg = 4600 * 10**18;  //$4600 colombian pesos for 1 liter of milk
@@ -52,22 +55,25 @@ contract MonthlyCPI {
     }
 
 
-    //The client app should implement:
-    //keccak256(abi.encodePacked(price1, price2, price3, price4))
+    
+    /// @notice The client app implements: ethers.utils.solidityPack(["uint256", "uint256", "uint256", "uint256"],[price0, price1, price2, price3]);
+    /// @param _commitment The bytes32 computed in the front end
     function commit (bytes32 _commitment) public onlyInCommitPeriod {
         require (commitment[msg.sender] == 0,"Already commited");
         commitment[msg.sender] = _commitment;
     }
 
+    /// @notice This function is called with the prices. It accepets it only if it matches the prices in the commit
     function reveal (uint _price0, uint _price1, uint _price2, uint _price3) public notRevealed onlyInRevealPeriod {
         require (keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3)) == commitment[msg.sender], "Incorrect commit");
     
-        //Save the commit in mapping
         revealedPrice[msg.sender] = RevealedPrice({price0: _price0, price1: _price1, price2: _price2, price3: _price3});
         revealedUsers.push(msg.sender);
         userRevealed[msg.sender] = true;
     }
 
+    /// @notice This function computes the average of the prices that have been reveled
+    /// @notice The average is a poor way of implementation because a very big number can move the average by a lot, affecting the protocol. In the future will be better if the mean is implemented
     function computeAvg () public returns (uint, uint, uint, uint) {
         uint totalParticipants = revealedUsers.length;
         require(totalParticipants > 0, "No participants :(");
@@ -94,10 +100,13 @@ contract MonthlyCPI {
         return (price0Avg, price1Avg, price2Avg, price3Avg);
     }  
 
+    /// @notice This function will be called by the factory contract. It is a way to make that the user only claim once per MonthlyCPI 
+    /// @param _claimer Address of claimer passed from FactoryCPI contract
     function setReward(address _claimer) public onlyFactory {
         rewardClaimed[_claimer] = true;
     }
 
+    /// @notice I used this function to verify that the commit from the front-end and from solidity is actually the same 
     function testHash (uint _price0, uint _price1 , uint _price2, uint _price3) public pure returns (bytes32) {
         return keccak256(abi.encodePacked(_price0, _price1 , _price2, _price3));
     }
