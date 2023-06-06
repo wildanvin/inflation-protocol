@@ -21,8 +21,8 @@ A live demo of the project is deployed on [Vercel](pending). Please note that to
 
 The contracts are verified on Sepolia:
 
-- [FactoryCPI.sol](pending)
-- [MonthlyCPI.sol](pending)
+- [FactoryCPI.sol](https://sepolia.etherscan.io/address/0xB2D60d91cA6A2DF08B6C483cF082FeDb72FD66e6#code)
+- [MonthlyCPI.sol](https://sepolia.etherscan.io/address/0xAFE288134A44A9bD090ab6a0aD96b94323d3AE60#code)
 
 ## Project Structure
 
