@@ -11,7 +11,7 @@ The Inflation Protocol project explores a blockchain-based approach to track the
 
 ## Video Demo
 
-Please find the demo video on [YouTube](pending) and [LensTube](pending).
+Please find the demo video on [YouTube](https://youtu.be/2KuF_u8raqE) and [LensTube](https://lenstube.xyz/watch/0x014f6f-0x2c).
 
 ## Live Demo
 
