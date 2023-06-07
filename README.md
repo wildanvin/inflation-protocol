@@ -15,7 +15,7 @@ Please find the demo video on [YouTube](https://youtu.be/2KuF_u8raqE) and [LensT
 
 ## Live Demo
 
-A live demo of the project is deployed on [Vercel](pending). Please note that to fully interact with the protocol, you will need to wait until July 15th, 2023, after the genesis month has passed. However, you can still explore the user interface.
+A live demo of the project is deployed on [Vercel](https://inflation-protocol.vercel.app/). Please note that to fully interact with the protocol, you will need to wait until July 15th, 2023, after the genesis month has passed. However, you can still explore the user interface.
 
 ## Verified Address
 
@@ -23,6 +23,10 @@ The contracts are verified on Sepolia:
 
 - [FactoryCPI.sol](https://sepolia.etherscan.io/address/0xB2D60d91cA6A2DF08B6C483cF082FeDb72FD66e6#code)
 - [MonthlyCPI.sol](https://sepolia.etherscan.io/address/0xAFE288134A44A9bD090ab6a0aD96b94323d3AE60#code)
+
+## Chainlink Automation
+
+I created 2 upkeeps, one for [createMonthlyCPI](https://automation.chain.link/sepolia/63784441675531817981253620457473502474027908920081041389270221250577570728259) and one for [calculateCPI](https://automation.chain.link/sepolia/21695596491531921025804925727894462086481352787702710834466320723378946119178). Right now they are paused because I want the protocol in Sepolia to start in July.
 
 ## Project Structure
 
@@ -57,6 +61,7 @@ And now I will leave you with the awesome documentaion of [Scaffold-Eth-v2](http
   - [Video Demo](#video-demo)
   - [Live Demo](#live-demo)
   - [Verified Address](#verified-address)
+  - [Chainlink Automation](#chainlink-automation)
   - [Project Structure](#project-structure)
     - [Scripts](#scripts)
 - [🏗 Scaffold-ETH 2](#-scaffold-eth-2)
